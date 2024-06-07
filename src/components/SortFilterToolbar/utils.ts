@@ -1,13 +1,21 @@
-import { FilterColorT } from "@/hooks/useUnsplashSearch";
-export type DropdownFilterColorsT = {
+import { FilterColorT, OrderByT } from "@/hooks/useUnsplashSearch";
+export type FilterColorsT = {
   label: string;
   id: FilterColorT | null;
 };
-export const DROPDOWN_FILTER_COLORS: DropdownFilterColorsT[] = [
-  {
-    label: "No color filter selected",
-    id: null,
-  },
+
+export type SortTypesT = {
+  label: string;
+  id: OrderByT;
+};
+
+export const INITIAL_COLOR_FILTER: FilterColorsT = {
+  label: "No color filter selected",
+  id: null,
+};
+
+export const DROPDOWN_FILTER_COLORS: FilterColorsT[] = [
+  INITIAL_COLOR_FILTER,
   {
     label: "Black and white",
     id: "black_and_white",
@@ -48,4 +56,14 @@ export const DROPDOWN_FILTER_COLORS: DropdownFilterColorsT[] = [
     label: "Blue",
     id: "blue",
   },
+];
+
+export const INITIAL_SORT_TYPE: SortTypesT = {
+  label: "relevant",
+  id: "relevant",
+};
+
+export const SORT_TYPES: SortTypesT[] = [
+  INITIAL_SORT_TYPE,
+  { label: "latest", id: "latest" },
 ];

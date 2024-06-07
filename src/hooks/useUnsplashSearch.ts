@@ -53,9 +53,8 @@ export const useUnsplashSearch = (
       }
     );
     const data = await response.json();
-    return data.results as UnsplashImageT[];
+    return data;
   };
-  console.log("searchTerm", searchTerm);
 
   const { isLoading, error, data, refetch } = useQuery({
     enabled: !!searchTerm,
