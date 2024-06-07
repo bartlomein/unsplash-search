@@ -23,7 +23,7 @@ const Images = ({ images, isLoading }: ImagesP) => {
         return (
           <ImageComponent
             image={elem}
-            height={200}
+            height={400}
             width={400}
             quality={70}
             key={index}

@@ -22,7 +22,7 @@ export type FilterColorT =
 const buildUnsplashQuery = (
   searchTerm: string,
   page: number,
-  filterColor?: FilterColorT,
+  filterColor?: FilterColorT | null,
   orderBy?: OrderByT
 ) => {
   let query = `${unsplashBaseUrl}/search/photos?page=${page}&query=${searchTerm}`;
@@ -38,7 +38,7 @@ const buildUnsplashQuery = (
 export const useUnsplashSearch = (
   searchTerm: string,
   page: number,
-  filterColor?: FilterColorT,
+  filterColor?: FilterColorT | null,
   orderBy?: OrderByT
 ) => {
   const fetchUnsplashImages = async () => {
