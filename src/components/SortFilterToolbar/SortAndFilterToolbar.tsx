@@ -32,54 +32,56 @@ const SortAndFilterToolbar = ({
   setSelectedSort,
 }: SortAndFilterToolbarP) => {
   return (
-    <div className="flex items-center space-x-2">
-      <div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline">{`Sorting by ${selectedSort.label}`}</Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56">
-            <DropdownMenuLabel>Colors</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            {SORT_TYPES.map((sortType, index) => {
-              return (
-                <DropdownMenuCheckboxItem
-                  key={index}
-                  checked={selectedSort.id === sortType.id}
-                  onCheckedChange={() => setSelectedSort(sortType)}
-                >
-                  {sortType.label}
-                </DropdownMenuCheckboxItem>
-              );
-            })}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-      <div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline">
-              {selectedFilter.id
-                ? `${selectedFilter.label} filter selected`
-                : "No color filter selected"}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56">
-            <DropdownMenuLabel>Colors</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            {DROPDOWN_FILTER_COLORS.map((color, index) => {
-              return (
-                <DropdownMenuCheckboxItem
-                  key={index}
-                  checked={selectedFilter.id === color.id}
-                  onCheckedChange={() => setSelectedFilter(color)}
-                >
-                  {color.label}
-                </DropdownMenuCheckboxItem>
-              );
-            })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+    <div className="flex justify-center">
+      <div className="flex items-center space-x-2">
+        <div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">{`Sorting by ${selectedSort.label}`}</Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuLabel>Colors</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {SORT_TYPES.map((sortType, index) => {
+                return (
+                  <DropdownMenuCheckboxItem
+                    key={index}
+                    checked={selectedSort.id === sortType.id}
+                    onCheckedChange={() => setSelectedSort(sortType)}
+                  >
+                    {sortType.label}
+                  </DropdownMenuCheckboxItem>
+                );
+              })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+        <div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                {selectedFilter.id
+                  ? `${selectedFilter.label} filter selected`
+                  : "No color filter selected"}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuLabel>Colors</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {DROPDOWN_FILTER_COLORS.map((color, index) => {
+                return (
+                  <DropdownMenuCheckboxItem
+                    key={index}
+                    checked={selectedFilter.id === color.id}
+                    onCheckedChange={() => setSelectedFilter(color)}
+                  >
+                    {color.label}
+                  </DropdownMenuCheckboxItem>
+                );
+              })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
     </div>
   );

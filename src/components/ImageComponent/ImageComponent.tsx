@@ -22,11 +22,12 @@ const ImageComponent = ({ image, width, height, quality }: ImageComponentP) => {
       <Image
         src={image.urls.small}
         alt={image.alt_description}
-        fill
+        width={width}
+        height={height}
         quality={quality}
-        objectFit="contain"
+        style={{ objectFit: "contain" }}
         blurDataURL={image.blur_hash}
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       />
     </div>
   );

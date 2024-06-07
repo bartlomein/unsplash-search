@@ -25,17 +25,17 @@ const Search = () => {
     setCurrentPage(1);
     setSearchTerm(value);
   };
-  const { data, isLoading } = useUnsplashSearch(
+  const { data, isLoading, error } = useUnsplashSearch(
     searchTerm,
     currentPage,
-    selectedFilter.id,
-    selectedSort.id
+    selectedSort.id,
+    selectedFilter.id
   );
 
   const totalPages = data?.total_pages;
 
   return (
-    <div>
+    <div className="w-4/6 flex flex-col">
       <InputAndButton onButtonPress={onSubmitPress} />
 
       <SortAndFilterToolbar
@@ -45,7 +45,8 @@ const Search = () => {
         setSelectedSort={setSelectedSort}
       />
 
-      <Images images={data?.results} isLoading={isLoading} />
+      {!error ? <Images images={data?.results} isLoading={isLoading} /> : null}
+      {error ? <div>{error.message}</div> : null}
       {totalPages ? (
         <PaginationComponent
           currentPage={currentPage}

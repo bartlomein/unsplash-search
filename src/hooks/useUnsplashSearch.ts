@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import type { UnsplashImageT } from "@/types/images.types";
 
 const unsplashBaseUrl = "https://api.unsplash.com";
 
@@ -22,28 +21,26 @@ export type FilterColorT =
 const buildUnsplashQuery = (
   searchTerm: string,
   page: number,
-  filterColor?: FilterColorT | null,
-  orderBy?: OrderByT
+  orderBy: OrderByT,
+  filterColor?: FilterColorT | null
 ) => {
-  let query = `${unsplashBaseUrl}/search/photos?page=${page}&query=${searchTerm}`;
+  let query = `${unsplashBaseUrl}/search/photos?page=${page}&query=${searchTerm}&order_by=${orderBy}`;
   if (filterColor) {
     query = `${query}&color=${filterColor}`;
   }
-  if (orderBy) {
-    query = `${query}&order_by=${orderBy}`;
-  }
+
   return query;
 };
 
 export const useUnsplashSearch = (
   searchTerm: string,
   page: number,
-  filterColor?: FilterColorT | null,
-  orderBy?: OrderByT
+  orderBy: OrderByT,
+  filterColor?: FilterColorT | null
 ) => {
   const fetchUnsplashImages = async () => {
     const response = await fetch(
-      buildUnsplashQuery(searchTerm, page, filterColor, orderBy),
+      buildUnsplashQuery(searchTerm, page, orderBy, filterColor),
       {
         method: "GET",
         headers: {

@@ -5,7 +5,6 @@ import "@testing-library/jest-dom"; // Import jest-dom for custom matchers
 import { UnsplashImageT } from "@/types/images.types";
 import ImageComponent from "../ImageComponent/ImageComponent";
 
-// Mock the ImageComponent to prevent unnecessary rendering
 jest.mock("../ImageComponent/ImageComponent", () => {
   return ({ image, ...props }: any) => (
     <div data-testid="mocked-image-component">{image.description}</div>

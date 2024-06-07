@@ -15,14 +15,16 @@ const InputAndButton = ({ onButtonPress }: InputAndButtonP) => {
     }
   };
   return (
-    <div className="flex w-full max-w-sm items-center space-x-2">
-      <Input
-        type="text"
-        placeholder="Search for images"
-        onChange={(e) => setTextInputValue(e.target.value)}
-        onKeyDown={(e) => handleKeyPress(e)}
-      />
-      <Button onClick={() => onButtonPress(textInputValue)}>Search</Button>
+    <div className="flex justify-center p-4">
+      <div className="flex w-full max-w-sm items-center space-x-2">
+        <Input
+          type="text"
+          placeholder="Search for images"
+          onChange={(e) => setTextInputValue(e.target.value)}
+          onKeyDown={(e) => handleKeyPress(e)}
+        />
+        <Button onClick={() => onButtonPress(textInputValue)}>Search</Button>
+      </div>
     </div>
   );
 };
