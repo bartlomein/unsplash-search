@@ -7,7 +7,7 @@ import ImageComponent from "../ImageComponent/ImageComponent";
 
 // Mock the ImageComponent to prevent unnecessary rendering
 jest.mock("../ImageComponent/ImageComponent", () => {
-  return ({ image, ...props }) => (
+  return ({ image, ...props }: any) => (
     <div data-testid="mocked-image-component">{image.description}</div>
   );
 });
@@ -43,7 +43,6 @@ describe("Images Component", () => {
 
     render(<Images isLoading={false} images={sampleImages} />);
 
-    // Check if ImageComponent is rendered with the correct image description
     const imageElements = screen.getAllByTestId("mocked-image-component");
     expect(imageElements).toHaveLength(sampleImages.length);
     expect(imageElements[0]).toHaveTextContent(sampleImages[0].description);

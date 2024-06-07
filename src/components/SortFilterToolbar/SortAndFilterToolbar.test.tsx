@@ -9,7 +9,6 @@ import {
   SortTypesT,
 } from "./utils";
 
-// Mock data
 const mockFilterColors = DROPDOWN_FILTER_COLORS as FilterColorsT[];
 const mockSortTypes = SORT_TYPES as SortTypesT[];
 
@@ -28,7 +27,6 @@ describe("SortAndFilterToolbar", () => {
       />
     );
 
-    // Open sorting dropdown and click a new option
     const user = userEvent.setup();
     await user.click(screen.getByText(`Sorting by ${initialSort.label}`));
     await user.click(screen.getByText(mockSortTypes[1].label));

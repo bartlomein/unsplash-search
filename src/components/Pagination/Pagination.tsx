@@ -2,13 +2,12 @@ import React from "react";
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
-  PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { Dispatch, SetStateAction } from "react";
+
 type PaginationComponentP = {
   currentPage: number;
   totalPages: number;
