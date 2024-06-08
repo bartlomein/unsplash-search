@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 
 import { useUnsplashSearch } from "@/hooks/useUnsplashSearch";
 import SortAndFilterToolbar from "../SortFilterToolbar/SortAndFilterToolbar";
@@ -20,10 +20,6 @@ const Search = () => {
   const [selectedSort, setSelectedSort] =
     useState<SortTypesT>(INITIAL_SORT_TYPE);
   const [currentPage, setCurrentPage] = useState<number>(1);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchTerm, selectedFilter, selectedSort]);
 
   const memoizedOnSubmitPress = useCallback((value: string) => {
     setCurrentPage(1);
