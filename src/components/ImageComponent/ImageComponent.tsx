@@ -20,8 +20,9 @@ const ImageComponent = ({ image, width, height, quality }: ImageComponentP) => {
     >
       <Image
         src={image.urls.small}
-        alt={image.alt_description}
+        sizes={`${width}px`}
         fill
+        alt={image.alt_description}
         quality={quality}
         style={{ objectFit: "cover" }}
         blurDataURL={image.blur_hash}
