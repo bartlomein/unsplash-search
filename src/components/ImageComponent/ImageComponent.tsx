@@ -12,7 +12,6 @@ type ImageComponentP = {
 const ImageComponent = ({ image, width, height, quality }: ImageComponentP) => {
   return (
     <div
-      className="flex-row"
       style={{
         position: "relative",
         width: width,
@@ -22,12 +21,10 @@ const ImageComponent = ({ image, width, height, quality }: ImageComponentP) => {
       <Image
         src={image.urls.small}
         alt={image.alt_description}
-        width={width}
-        height={height}
+        fill
         quality={quality}
-        style={{ objectFit: "contain" }}
+        style={{ objectFit: "cover" }}
         blurDataURL={image.blur_hash}
-        // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       />
     </div>
   );

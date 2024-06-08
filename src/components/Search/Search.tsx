@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 import { useUnsplashSearch } from "@/hooks/useUnsplashSearch";
 import SortAndFilterToolbar from "../SortFilterToolbar/SortAndFilterToolbar";
@@ -25,6 +25,11 @@ const Search = () => {
     setCurrentPage(1);
     setSearchTerm(value);
   };
+
+  const memoizedOnSubmitPress = useCallback((value: string) => {
+    onSubmitPress(value);
+  }, []);
+
   const { data, isLoading, error } = useUnsplashSearch(
     searchTerm,
     currentPage,
@@ -35,8 +40,8 @@ const Search = () => {
   const totalPages = data?.total_pages;
 
   return (
-    <div className="w-4/6 flex flex-col">
-      <InputAndButton onButtonPress={onSubmitPress} />
+    <div className="flex flex-col">
+      <InputAndButton onButtonPress={memoizedOnSubmitPress} />
 
       <SortAndFilterToolbar
         selectedFilter={selectedFilter}
