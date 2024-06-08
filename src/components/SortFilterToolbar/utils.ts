@@ -10,7 +10,7 @@ export type SortTypesT = {
 };
 
 export const INITIAL_COLOR_FILTER: FilterColorsT = {
-  label: "No color filter selected",
+  label: "No color filter",
   id: null,
 };
 
