@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 
 import { useUnsplashSearch } from "@/hooks/useUnsplashSearch";
 import SortAndFilterToolbar from "../SortFilterToolbar/SortAndFilterToolbar";
@@ -21,13 +21,23 @@ const Search = () => {
     useState<SortTypesT>(INITIAL_SORT_TYPE);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const onSubmitPress = (value: string) => {
+  useEffect(() => {
     setCurrentPage(1);
-    setSearchTerm(value);
-  };
+  }, [searchTerm, selectedFilter, selectedSort]);
 
   const memoizedOnSubmitPress = useCallback((value: string) => {
-    onSubmitPress(value);
+    setCurrentPage(1);
+    setSearchTerm(value);
+  }, []);
+
+  const memoizedFilterChange = useCallback((filter: FilterColorsT) => {
+    setCurrentPage(1);
+    setSelectedFilter(filter);
+  }, []);
+
+  const memoizedSortChange = useCallback((sort: SortTypesT) => {
+    setCurrentPage(1);
+    setSelectedSort(sort);
   }, []);
 
   const { data, isLoading, error } = useUnsplashSearch(
@@ -45,13 +55,17 @@ const Search = () => {
 
       <SortAndFilterToolbar
         selectedFilter={selectedFilter}
-        setSelectedFilter={setSelectedFilter}
+        setSelectedFilter={memoizedFilterChange}
         selectedSort={selectedSort}
-        setSelectedSort={setSelectedSort}
+        setSelectedSort={memoizedSortChange}
       />
 
       {!error ? <Images images={data?.results} isLoading={isLoading} /> : null}
-      {error ? <div>{error.message}</div> : null}
+      {error ? (
+        <div className="m-auto text-red-600" p-8>
+          {error.message}
+        </div>
+      ) : null}
       {totalPages ? (
         <PaginationComponent
           currentPage={currentPage}

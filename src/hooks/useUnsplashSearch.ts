@@ -24,7 +24,7 @@ const buildUnsplashQuery = (
   orderBy: OrderByT,
   filterColor?: FilterColorT | null
 ) => {
-  let query = `${unsplashBaseUrl}/search/photos?page=${page}&query=${searchTerm}&order_by=${orderBy}`;
+  let query = `${unsplashBaseUrl}/search/photos?page=${page}&query=${searchTerm}&order_by=${orderBy}&per_page=6`;
   if (filterColor) {
     query = `${query}&color=${filterColor}`;
   }

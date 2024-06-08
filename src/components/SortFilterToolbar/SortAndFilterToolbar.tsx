@@ -20,9 +20,9 @@ import {
 
 type SortAndFilterToolbarP = {
   selectedFilter: FilterColorsT;
-  setSelectedFilter: Dispatch<SetStateAction<FilterColorsT>>;
+  setSelectedFilter: (filter: FilterColorsT) => void;
   selectedSort: SortTypesT;
-  setSelectedSort: Dispatch<SetStateAction<SortTypesT>>;
+  setSelectedSort: (sort: SortTypesT) => void;
 };
 
 const SortAndFilterToolbar = ({
