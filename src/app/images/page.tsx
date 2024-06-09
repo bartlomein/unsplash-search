@@ -18,6 +18,7 @@ type SearchParamsP = {
 type APIResultT = {
   results: UnsplashImageT[];
   total_pages: number;
+  errors?: string[];
 };
 
 const ImagesPage = async ({ searchParams }: SearchParamsP) => {
@@ -53,6 +54,16 @@ const ImagesPage = async ({ searchParams }: SearchParamsP) => {
       {error ? (
         <div className="text-center	text-red-600" p-8>
           {JSON.stringify((error as Error)?.message)}
+        </div>
+      ) : null}
+
+      {data?.errors ? (
+        <div>
+          {data.errors.map((err) => (
+            <div className="text-center	text-red-600" p-8>
+              {err}
+            </div>
+          ))}
         </div>
       ) : null}
     </div>

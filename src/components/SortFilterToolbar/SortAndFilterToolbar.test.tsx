@@ -27,8 +27,6 @@ describe("SortAndFilterToolbar", () => {
         setSelectedSort={setSelectedSort}
       />
     );
-    console.log("******");
-    console.log(initialSort);
 
     const user = userEvent.setup();
     await user.click(screen.getByText(`Sorting by ${initialSort}`));

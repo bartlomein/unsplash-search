@@ -39,7 +39,11 @@ const SortAndFilterToolbar = ({
         <div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline">{`Sorting by ${orderBy?.label}`}</Button>
+              <Button variant="outline">
+                {orderBy?.label
+                  ? `Sorting by ${orderBy?.label}`
+                  : "Sorting by relevant"}
+              </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
               <DropdownMenuLabel>Colors</DropdownMenuLabel>
@@ -62,7 +66,7 @@ const SortAndFilterToolbar = ({
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">
-                {selectedFilter
+                {selectedFilter && filterBy?.label
                   ? `${filterBy?.label} filter selected`
                   : "No color filter selected"}
               </Button>

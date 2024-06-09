@@ -29,48 +29,36 @@ const Search = ({
 }: SearchTypesT) => {
   const router = useRouter();
 
-  const memoizedOnSubmitPress = useCallback((value: string) => {
+  const handleSubmit = (value: string) => {
     const query = buildQuery(value, 1, selectedSort, selectedFilter);
     router.push(`/images/${query}`);
-  }, []);
+  };
 
-  const memoizedFilterChange = useCallback(
-    (filter: FilterColorT) => {
-      const query = buildQuery(searchTerm, 1, selectedSort, filter);
-      router.push(`/images/${query}`);
-    },
-    [searchTerm, selectedSort]
-  );
+  const handleFilterChange = (filter: FilterColorT) => {
+    const query = buildQuery(searchTerm, 1, selectedSort, filter);
+    router.push(`/images/${query}`);
+  };
 
-  const memoizedSortChange = useCallback(
-    (sort: OrderByT) => {
-      const query = buildQuery(searchTerm, 1, sort, selectedFilter);
-      router.push(`/images/${query}`);
-    },
-    [searchTerm, selectedFilter]
-  );
+  const handleSortChange = (sort: OrderByT) => {
+    const query = buildQuery(searchTerm, 1, sort, selectedFilter);
+    router.push(`/images/${query}`);
+  };
 
-  const memoizedPageChange = useCallback(
-    (page: number) => {
-      const query = buildQuery(searchTerm, page, selectedSort, selectedFilter);
-      router.push(`/images/${query}`);
-    },
-    [searchTerm, selectedFilter, selectedSort]
-  );
+  const handlePageChange = (page: number) => {
+    const query = buildQuery(searchTerm, page, selectedSort, selectedFilter);
+    router.push(`/images/${query}`);
+  };
 
   return (
     <div className="flex flex-col">
-      <InputAndButton
-        onButtonPress={memoizedOnSubmitPress}
-        value={searchTerm}
-      />
+      <InputAndButton onButtonPress={handleSubmit} value={searchTerm} />
 
       {searchTerm ? (
         <SortAndFilterToolbar
           selectedFilter={selectedFilter}
-          setSelectedFilter={memoizedFilterChange}
+          setSelectedFilter={handleFilterChange}
           selectedSort={selectedSort}
-          setSelectedSort={memoizedSortChange}
+          setSelectedSort={handleSortChange}
         />
       ) : null}
 
@@ -79,7 +67,7 @@ const Search = ({
       {totalPages ? (
         <PaginationComponent
           currentPage={selectedPage}
-          setCurrentPage={memoizedPageChange}
+          setCurrentPage={handlePageChange}
           totalPages={totalPages}
         />
       ) : null}
