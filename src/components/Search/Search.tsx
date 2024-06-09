@@ -1,71 +1,85 @@
 "use client";
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
 
-import { useUnsplashSearch } from "@/hooks/useUnsplashSearch";
 import SortAndFilterToolbar from "../SortFilterToolbar/SortAndFilterToolbar";
 import PaginationComponent from "../Pagination/Pagination";
 import Images from "../Images/Images";
 import InputAndButton from "../InputAndButton/InputAndButton";
-import {
-  FilterColorsT,
-  SortTypesT,
-  INITIAL_COLOR_FILTER,
-  INITIAL_SORT_TYPE,
-} from "../SortFilterToolbar/utils";
+import { useRouter } from "next/navigation";
 
-const Search = () => {
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const [selectedFilter, setSelectedFilter] =
-    useState<FilterColorsT>(INITIAL_COLOR_FILTER);
-  const [selectedSort, setSelectedSort] =
-    useState<SortTypesT>(INITIAL_SORT_TYPE);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+import { FilterColorT, OrderByT } from "@/lib/api";
+import { buildQuery } from "@/lib/api";
+
+type SearchTypesT = {
+  searchTerm?: string;
+  selectedFilter: FilterColorT;
+  selectedSort: OrderByT;
+  selectedPage: number;
+  totalPages: number | undefined;
+  images: any;
+};
+
+const Search = ({
+  searchTerm = "",
+  selectedFilter,
+  selectedSort,
+  selectedPage,
+  images,
+  totalPages,
+}: SearchTypesT) => {
+  const router = useRouter();
 
   const memoizedOnSubmitPress = useCallback((value: string) => {
-    setCurrentPage(1);
-    setSearchTerm(value);
+    const query = buildQuery(value, 1, selectedSort, selectedFilter);
+    router.push(`/images/${query}`);
   }, []);
 
-  const memoizedFilterChange = useCallback((filter: FilterColorsT) => {
-    setCurrentPage(1);
-    setSelectedFilter(filter);
-  }, []);
-
-  const memoizedSortChange = useCallback((sort: SortTypesT) => {
-    setCurrentPage(1);
-    setSelectedSort(sort);
-  }, []);
-
-  const { data, isLoading, error } = useUnsplashSearch(
-    searchTerm,
-    currentPage,
-    selectedSort.id,
-    selectedFilter.id
+  const memoizedFilterChange = useCallback(
+    (filter: FilterColorT) => {
+      const query = buildQuery(searchTerm, 1, selectedSort, filter);
+      router.push(`/images/${query}`);
+    },
+    [searchTerm, selectedSort]
   );
 
-  const totalPages = data?.total_pages;
+  const memoizedSortChange = useCallback(
+    (sort: OrderByT) => {
+      const query = buildQuery(searchTerm, 1, sort, selectedFilter);
+      router.push(`/images/${query}`);
+    },
+    [searchTerm, selectedFilter]
+  );
+
+  const memoizedPageChange = useCallback(
+    (page: number) => {
+      const query = buildQuery(searchTerm, page, selectedSort, selectedFilter);
+      router.push(`/images/${query}`);
+    },
+    [searchTerm, selectedFilter, selectedSort]
+  );
 
   return (
     <div className="flex flex-col">
-      <InputAndButton onButtonPress={memoizedOnSubmitPress} />
-
-      <SortAndFilterToolbar
-        selectedFilter={selectedFilter}
-        setSelectedFilter={memoizedFilterChange}
-        selectedSort={selectedSort}
-        setSelectedSort={memoizedSortChange}
+      <InputAndButton
+        onButtonPress={memoizedOnSubmitPress}
+        value={searchTerm}
       />
 
-      {!error ? <Images images={data?.results} isLoading={isLoading} /> : null}
-      {error ? (
-        <div className="m-auto text-red-600" p-8>
-          {error.message}
-        </div>
+      {searchTerm ? (
+        <SortAndFilterToolbar
+          selectedFilter={selectedFilter}
+          setSelectedFilter={memoizedFilterChange}
+          selectedSort={selectedSort}
+          setSelectedSort={memoizedSortChange}
+        />
       ) : null}
+
+      <Images images={images} />
+
       {totalPages ? (
         <PaginationComponent
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
+          currentPage={selectedPage}
+          setCurrentPage={memoizedPageChange}
           totalPages={totalPages}
         />
       ) : null}

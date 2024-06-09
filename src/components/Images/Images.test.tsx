@@ -1,9 +1,8 @@
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
-import Images from "./Images"; // Update path if needed
-import "@testing-library/jest-dom"; // Import jest-dom for custom matchers
+import { render, screen } from "@testing-library/react";
+import Images from "./Images";
+import "@testing-library/jest-dom";
 import { UnsplashImageT } from "@/types/images.types";
-import ImageComponent from "../ImageComponent/ImageComponent";
 
 jest.mock("../ImageComponent/ImageComponent", () => {
   return ({ image, ...props }: any) => (
@@ -12,22 +11,8 @@ jest.mock("../ImageComponent/ImageComponent", () => {
 });
 
 describe("Images Component", () => {
-  test("renders loading message when isLoading is true", () => {
-    render(<Images isLoading={true} />);
-    const loadingElement = screen.getByText("Loading");
-    expect(loadingElement).toBeInTheDocument();
-  });
-
-  test("renders no search message when images is undefined", () => {
-    render(<Images isLoading={false} />);
-    const noSearchMessageElement = screen.getByText(
-      "Please search for an image in the searchbar"
-    );
-    expect(noSearchMessageElement).toBeInTheDocument();
-  });
-
   test("renders no results message when images is an empty array", () => {
-    render(<Images isLoading={false} images={[]} />);
+    render(<Images images={[]} />);
     const noResultsMessageElement = screen.getByText(
       "No images for this search"
     );
@@ -40,7 +25,7 @@ describe("Images Component", () => {
       { description: "Image 2", urls: { small: "url2" } },
     ];
 
-    render(<Images isLoading={false} images={sampleImages} />);
+    render(<Images images={sampleImages} />);
 
     const imageElements = screen.getAllByTestId("mocked-image-component");
     expect(imageElements).toHaveLength(sampleImages.length);

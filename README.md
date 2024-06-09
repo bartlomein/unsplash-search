@@ -10,7 +10,7 @@ A pagination component will be available on the bottom to navigate to more pages
 
 1. Clone the repository
 2. Run `npm install`
-3. Create a `.env.local` file inside the project root and inside of that file insert your Unsplash API key like so: `NEXT_PUBLIC_UNSPLASH_ACCESS_KEY=XXXXXXX`
+3. Create a `.env.local` file inside the project root and inside of that file insert your Unsplash API key like so: `UNSPLASH_ACCESS_KEY=XXXXXXX`
 
 ## Running
 

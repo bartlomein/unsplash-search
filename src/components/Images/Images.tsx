@@ -4,26 +4,15 @@ import { UnsplashImageT } from "@/types/images.types";
 
 type ImagesP = {
   images?: UnsplashImageT[];
-  isLoading: boolean;
 };
 
-const Images = ({ images, isLoading }: ImagesP) => {
-  if (isLoading) {
-    return <div className="m-auto p-8">Loading</div>;
-  }
-  if (!images) {
-    return (
-      <div className="m-auto p-8">
-        Please search for an image in the searchbar
-      </div>
-    );
-  }
+const Images = ({ images }: ImagesP) => {
   if (images?.length == 0) {
     return <div className="m-auto p-8">No images for this search</div>;
   }
   return (
     <div className="grid auto-cols-auto  lg:grid-cols-3 md:grid-cols-2 p-4 auto-cols-max gap-8 m-auto">
-      {images.map((elem, index) => {
+      {images?.map((elem, index) => {
         return (
           <ImageComponent
             image={elem}

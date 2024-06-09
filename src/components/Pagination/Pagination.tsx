@@ -6,12 +6,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { Dispatch, SetStateAction } from "react";
 
 type PaginationComponentP = {
   currentPage: number;
   totalPages: number;
-  setCurrentPage: Dispatch<SetStateAction<number>>;
+  setCurrentPage: (page: number) => void;
 };
 
 const PaginationComponent = ({

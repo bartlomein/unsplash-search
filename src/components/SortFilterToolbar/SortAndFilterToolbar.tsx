@@ -1,14 +1,10 @@
 import React from "react";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import {
-  DROPDOWN_FILTER_COLORS,
-  SORT_TYPES,
-  type FilterColorsT,
-  type SortTypesT,
-} from "./utils";
 
-import { Dispatch, SetStateAction } from "react";
+import { Button } from "@/components/ui/button";
+import { DROPDOWN_FILTER_COLORS, SORT_TYPES } from "./utils";
+
+import type { OrderByT, FilterColorT } from "@/lib/api";
+
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -19,10 +15,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 type SortAndFilterToolbarP = {
-  selectedFilter: FilterColorsT;
-  setSelectedFilter: (filter: FilterColorsT) => void;
-  selectedSort: SortTypesT;
-  setSelectedSort: (sort: SortTypesT) => void;
+  selectedFilter: FilterColorT;
+  setSelectedFilter: (filter: FilterColorT) => void;
+  selectedSort: OrderByT;
+  setSelectedSort: (sort: OrderByT) => void;
 };
 
 const SortAndFilterToolbar = ({
@@ -31,13 +27,19 @@ const SortAndFilterToolbar = ({
   selectedSort,
   setSelectedSort,
 }: SortAndFilterToolbarP) => {
+  const orderBy = SORT_TYPES.find((sortType) => sortType.id === selectedSort);
+
+  const filterBy = DROPDOWN_FILTER_COLORS.find(
+    (filterType) => filterType.id === selectedFilter
+  );
+
   return (
     <div className="flex justify-center">
       <div className="flex items-center space-x-2">
         <div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline">{`Sorting by ${selectedSort.label}`}</Button>
+              <Button variant="outline">{`Sorting by ${orderBy?.label}`}</Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
               <DropdownMenuLabel>Colors</DropdownMenuLabel>
@@ -46,8 +48,8 @@ const SortAndFilterToolbar = ({
                 return (
                   <DropdownMenuCheckboxItem
                     key={index}
-                    checked={selectedSort.id === sortType.id}
-                    onCheckedChange={() => setSelectedSort(sortType)}
+                    checked={selectedSort === sortType.id}
+                    onCheckedChange={() => setSelectedSort(sortType.id)}
                   >
                     {sortType.label}
                   </DropdownMenuCheckboxItem>
@@ -60,8 +62,8 @@ const SortAndFilterToolbar = ({
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">
-                {selectedFilter.id
-                  ? `${selectedFilter.label} filter selected`
+                {selectedFilter
+                  ? `${filterBy?.label} filter selected`
                   : "No color filter selected"}
               </Button>
             </DropdownMenuTrigger>
@@ -72,8 +74,8 @@ const SortAndFilterToolbar = ({
                 return (
                   <DropdownMenuCheckboxItem
                     key={index}
-                    checked={selectedFilter.id === color.id}
-                    onCheckedChange={() => setSelectedFilter(color)}
+                    checked={selectedFilter === color.id}
+                    onCheckedChange={() => setSelectedFilter(color.id)}
                   >
                     {color.label}
                   </DropdownMenuCheckboxItem>

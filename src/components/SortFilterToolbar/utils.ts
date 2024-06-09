@@ -1,7 +1,7 @@
-import { FilterColorT, OrderByT } from "@/hooks/useUnsplashSearch";
+import { type FilterColorT, type OrderByT } from "@/lib/api";
 export type FilterColorsT = {
   label: string;
-  id: FilterColorT | null;
+  id: FilterColorT | "";
 };
 
 export type SortTypesT = {
@@ -11,7 +11,7 @@ export type SortTypesT = {
 
 export const INITIAL_COLOR_FILTER: FilterColorsT = {
   label: "No color filter",
-  id: null,
+  id: "",
 };
 
 export const DROPDOWN_FILTER_COLORS: FilterColorsT[] = [

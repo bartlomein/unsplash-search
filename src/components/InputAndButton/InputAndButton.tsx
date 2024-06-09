@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 
 type InputAndButtonP = {
   onButtonPress: (t: string) => void;
+  value?: string;
 };
 
-const InputAndButton = ({ onButtonPress }: InputAndButtonP) => {
+const InputAndButton = ({ onButtonPress, value }: InputAndButtonP) => {
   const [textInputValue, setTextInputValue] = useState<string>("");
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -19,7 +20,8 @@ const InputAndButton = ({ onButtonPress }: InputAndButtonP) => {
       <div className="flex w-full max-w-sm items-center space-x-2">
         <Input
           type="text"
-          placeholder="Search for images"
+          value={textInputValue}
+          placeholder={value || "Search for images"}
           onChange={(e) => setTextInputValue(e.target.value)}
           onKeyDown={(e) => handleKeyPress(e)}
         />

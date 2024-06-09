@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+
 import "./globals.css";
-import { ReactQueryProvider } from "../providers/react-query-provider";
+import Providers from "@/providers/react-query-provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,9 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ReactQueryProvider>
+      <Providers>
         <body className="w-screen">{children}</body>
-      </ReactQueryProvider>
+      </Providers>
     </html>
   );
 }
