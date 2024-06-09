@@ -20,6 +20,13 @@ Run `npm run dev` inside project root
 
 Run `npm run test` inside the project root
 
+### Versions
+
+This application has 2 versions:
+
+1. First was made with client side rendering. Was made that way for quicker reactivity. To see it, checkout to commit 0e6a636846476e7b92f18cf8a6a8d932651874ce
+2. Refactored later to SSR. After thinking for a little bit, decided to refactor to SSR to obfuscate the API key and get cashing.
+
 ### Libraries / Frameworks used
 
 1. React
