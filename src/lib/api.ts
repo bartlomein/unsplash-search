@@ -25,7 +25,9 @@ export const buildQuery = (
 ) => {
   let query = `${
     isUnsplash ? `${unsplashBaseUrl}/search/photos` : ""
-  }?page=${page}&query=${searchTerm}&order_by=${orderBy}`;
+  }?page=${page}&query=${searchTerm}&order_by=${orderBy}${
+    isUnsplash ? `&per_page=6` : ""
+  }`;
   if (filterColor) {
     query = `${query}&color=${filterColor}`;
   }
